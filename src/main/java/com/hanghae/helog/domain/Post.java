@@ -1,5 +1,6 @@
 package com.hanghae.helog.domain;
 
+import com.hanghae.helog.dto.post.PostCreateReqeustDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,7 @@ public class Post extends Timestamped {
 
     private String title;
 
-    private String sub_title;
+    private String subTitle;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -28,4 +29,14 @@ public class Post extends Timestamped {
     private String thumbnail;
 
     private String url;
+
+    public Post(User user, PostCreateReqeustDto postCreateReqeustDto) {
+        this.user = user;
+        this.title = postCreateReqeustDto.getTitle();
+        this.subTitle = postCreateReqeustDto.getSubTitle();
+        this.content = postCreateReqeustDto.getContent();
+        this.thumbnail = postCreateReqeustDto.getThumbnail();
+        this.url = postCreateReqeustDto.getUrl();
+    }
+
 }
