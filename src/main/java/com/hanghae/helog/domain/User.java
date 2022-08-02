@@ -1,10 +1,14 @@
 package com.hanghae.helog.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -16,6 +20,8 @@ public class User {
 
     @Column(unique = true)
     private String id;
+
+    private String email;
 
     private String password;
 }
