@@ -42,17 +42,17 @@ public class CommentService {
         return new CommentResponseDto(comment);
     }
 
-    @Transactional
-    public String updatComment(Long comment_id, UserDetailsImpl user, CommentRequestDto RequestDto){
+
+    public ResponseEntity<?> updateComment(Long comment_id, UserDetailsImpl user, CommentRequestDto commentRequestDto){
         Comment comment = commentRepository.findById(comment_id).orElseThrow(
                 () -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
 
         if (comment.getUser().getUser_id().equals(user.getUser_id())) {
-            comment.setContent(RequestDto.getContent());
+            comment.update(commentRequestDto);
             commentRepository.save(comment);
-            return "댓글이 수정 되었습니다.";
+            return new ResponseEntity<>(HttpStatus.valueOf(204));
         } else {
-            return "다른 사람의 댓글입니다.";
+            return new ResponseEntity<>(HttpStatus.valueOf(403));
         }
 
     }
@@ -71,4 +71,6 @@ public class CommentService {
 
         return equals(writer);
     }
+
+
 }
