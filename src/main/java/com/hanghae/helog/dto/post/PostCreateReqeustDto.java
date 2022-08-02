@@ -1,12 +1,8 @@
 package com.hanghae.helog.dto.post;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PostCreateReqeustDto {
 
     private String title;       // 게시글 제목
