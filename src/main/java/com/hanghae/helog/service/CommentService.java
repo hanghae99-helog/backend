@@ -34,7 +34,7 @@ public class CommentService {
     }
 
     public CommentResponseDto saveComment(Long post_id, UserDetailsImpl user, CommentRequestDto commentRequestDto){
-        Post post = postRepository.fidndByI(post_id)
+        Post post = postRepository.fidndById(post_id)
                 .orElseThrow( () -> new IllegalArgumentException("존재하지 않는 게시글 입니다."));
         Comment comment = new Comment(post, user, commentRequestDto);
         commentRepository.save(comment);
@@ -42,12 +42,13 @@ public class CommentService {
         return new CommentResponseDto(comment);
     }
 
-    private String updatComment(Long comment_id, UserDetailsImpl user, CommentRequestDto commentRequestDto){
+    @Transactional
+    public String updatComment(Long comment_id, UserDetailsImpl user, CommentRequestDto RequestDto){
         Comment comment = commentRepository.findById(comment_id).orElseThrow(
                 () -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
 
         if (comment.getUser().getUser_id().equals(user.getUser_id())) {
-            comment.setContent(commentRequestDto.getContent());
+            comment.setContent(RequestDto.getContent());
             commentRepository.save(comment);
             return "댓글이 수정 되었습니다.";
         } else {
