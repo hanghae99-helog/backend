@@ -2,6 +2,7 @@ package com.hanghae.helog.controller;
 
 import com.hanghae.helog.dto.comment.CommentRequestDto;
 import com.hanghae.helog.dto.comment.CommentResponseDto;
+import com.hanghae.helog.repository.CommentRepository;
 import com.hanghae.helog.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 public class commentController {
     private final CommentService commentService;
+    private final CommentRepository CommentRepository;
 
     @PostMapping("api/comments/{post_id}")
     public ResponseEntity<?> saveComment(@PathVariable Long post_id, @AuthenticationPrincipal UserDetailsImpl user,
@@ -37,5 +39,9 @@ public class commentController {
     @DeleteMapping("/api/comments/{comment_id}")
     public ResponseEntity<?> deleteComment(@AuthenticationPrincipal UserDetailsImpl user, @PathVariable Long comment_id) {
         return commentService.deleteComment(comment_id, user);
+    }
+
+    public com.hanghae.helog.repository.CommentRepository getCommentRepository() {
+        return CommentRepository;
     }
 }

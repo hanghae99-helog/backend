@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class CommentService {
 
-    private final CommentResponseDto commentRepository;
+    private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
