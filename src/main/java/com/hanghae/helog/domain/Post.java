@@ -1,10 +1,14 @@
 package com.hanghae.helog.domain;
 
 import com.hanghae.helog.dto.post.PostCreateReqeustDto;
+import com.hanghae.helog.dto.post.PostEditRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
 
 @NoArgsConstructor
 @Getter
@@ -30,6 +34,10 @@ public class Post extends Timestamped {
 
     private String url;
 
+    @OneToMany(mappedBy = "post", cascade = ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
+
     public Post(User user, PostCreateReqeustDto postCreateReqeustDto) {
         this.user = user;
         this.title = postCreateReqeustDto.getTitle();
@@ -39,4 +47,11 @@ public class Post extends Timestamped {
         this.url = postCreateReqeustDto.getUrl();
     }
 
+    public void editPost(PostEditRequestDto postEditRequestDto) {
+        this.title = postEditRequestDto.getTitle();
+        this.subTitle = postEditRequestDto.getSubTitle();
+        this.content = postEditRequestDto.getContent();
+        this.thumbnail = postEditRequestDto.getThumbnail();
+        this.url = postEditRequestDto.getUrl();
+    }
 }
