@@ -28,7 +28,10 @@ public class Post extends Timestamped {
     private User user;
 
     @Column(columnDefinition = "TEXT")
-    private String content;
+    private String viewContent;
+
+    @Column(columnDefinition = "TEXT")
+    private String writingContent;
 
     private String thumbnail;
 
@@ -42,7 +45,8 @@ public class Post extends Timestamped {
         this.user = user;
         this.title = postCreateReqeustDto.getTitle();
         this.subTitle = postCreateReqeustDto.getSubTitle();
-        this.content = postCreateReqeustDto.getContent();
+        this.viewContent = postCreateReqeustDto.getViewContent();
+        this.writingContent = postCreateReqeustDto.getWritingContent();
         this.thumbnail = postCreateReqeustDto.getThumbnail();
         this.url = postCreateReqeustDto.getUrl();
     }
@@ -50,7 +54,8 @@ public class Post extends Timestamped {
     public void editPost(PostEditRequestDto postEditRequestDto) {
         this.title = postEditRequestDto.getTitle();
         this.subTitle = postEditRequestDto.getSubTitle();
-        this.content = postEditRequestDto.getContent();
+        this.viewContent = postEditRequestDto.getViewContent();
+        this.writingContent = postEditRequestDto.getWritingContent();
         this.thumbnail = postEditRequestDto.getThumbnail();
         this.url = postEditRequestDto.getUrl();
     }
