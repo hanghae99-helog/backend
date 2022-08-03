@@ -8,6 +8,7 @@ import com.hanghae.helog.dto.post.PostEditRequestDto;
 import com.hanghae.helog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class PostController {
 
     // 게시글 전체 조회
     @GetMapping("/api/list")
-    public List<AllPostResponseDto> getAllPosts(@PageableDefault(page = 1, size = 15, sort = "createdAt", direction = Sort.Direction.DESC)
+    public Slice<AllPostResponseDto> getAllPosts(@PageableDefault(size = 15, sort = "createdAt", direction = Sort.Direction.DESC)
                                                     Pageable pageable) {
 
         return postService.getAllPosts(pageable);
