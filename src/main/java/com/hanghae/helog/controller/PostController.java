@@ -1,13 +1,14 @@
 package com.hanghae.helog.controller;
 
-import com.hanghae.helog.domain.Post;
 import com.hanghae.helog.dto.post.AllPostResponseDto;
 import com.hanghae.helog.dto.post.PostCreateReqeustDto;
 import com.hanghae.helog.dto.post.PostDetailResponseDto;
 import com.hanghae.helog.dto.post.PostEditRequestDto;
 import com.hanghae.helog.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,15 +22,25 @@ public class PostController {
 
 
     // 게시글 전체 조회
+
     @GetMapping("/api/list")
-    public List<AllPostResponseDto> getAllPosts(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy,
-            @RequestParam("isAsc") boolean isAsc
-    ) {
-        return postService.getAllPosts(page, size, sortBy, isAsc);
+    public List<AllPostResponseDto> getAllPosts(@PageableDefault(page = 1, size = 15, sort = "post_id", direction = Sort.Direction.DESC)
+                                                    Pageable pageable) {
+
+        return postService.getAllPosts(pageable);
+
     }
+
+
+//    @GetMapping("/api/list")
+//    public List<AllPostResponseDto> getAllPosts(
+//            @RequestParam("page") int page,
+//            @RequestParam("size") int size,
+//            @RequestParam("sortBy") String sortBy,
+//            @RequestParam("isAsc") boolean isAsc
+//    ) {
+//        return postService.getAllPosts(page, size, sortBy, isAsc);
+//    }
 
 
     // 게시글 작성

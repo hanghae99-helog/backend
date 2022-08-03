@@ -29,14 +29,8 @@ public class PostService {
 
 
     // 게시글 전체 조회
-    public List<AllPostResponseDto> getAllPosts(int page, int size, String sortBy, boolean isAsc) {
 
-        // 클라이언트는 1부터, 서버는 0부터 페이지가 시작되기 때문에 이를 맞춰주는 작업
-        page = page -1;
-
-        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Sort sort = Sort.by(direction, sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
+    public List<AllPostResponseDto> getAllPosts(Pageable pageable) {
 
         // 전체 게시글 가져오기
         Page<Post> postList = postRepository.findAll(pageable);
@@ -59,6 +53,38 @@ public class PostService {
 
         return posts;
     }
+
+
+//    public List<AllPostResponseDto> getAllPosts(int page, int size, String sortBy, boolean isAsc) {
+//
+//        // 클라이언트는 1부터, 서버는 0부터 페이지가 시작되기 때문에 이를 맞춰주는 작업
+//        page = page -1;
+//
+//        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+//        Sort sort = Sort.by(direction, sortBy);
+//        Pageable pageable = PageRequest.of(page, size, sort);
+//
+//        // 전체 게시글 가져오기
+//        Page<Post> postList = postRepository.findAll(pageable);
+//
+//        // Response 형식에 맞는 빈 배열 생성
+//        List<AllPostResponseDto> posts = new ArrayList<>();
+//
+//        // postRepository에 저장된 전체 게시글을 반복문을 통해서 하나씩 꺼내오기
+//        for (Post post : postList) {
+//
+//            // 각 게시글의 댓글 가져오기
+//            int commentCount = commentRepository.countByUrl(post.getUrl());
+//
+//            // Response 형식에 맞게 내용 및 댓글 넣기
+//            AllPostResponseDto allPost = new AllPostResponseDto(post, commentCount);
+//
+//            // posts 에 생성된 각각의 객체 추가
+//            posts.add(allPost);
+//        }
+//
+//        return posts;
+//    }
 
     // 게시글 작성
     public void createPost(@AuthenticationPrincipal UserDetailsImpl userDetails,
