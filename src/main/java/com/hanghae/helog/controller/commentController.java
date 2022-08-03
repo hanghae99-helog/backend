@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 public class commentController {
     private final CommentService commentService;
-    private final CommentRepository CommentRepository;
 
     @PostMapping("api/comments/{post_id}")//댓글 작성
     public ResponseEntity<?> saveComment(@PathVariable Long post_id, @AuthenticationPrincipal UserDetailsImpl user,
@@ -42,7 +41,4 @@ public class commentController {
         return commentService.deleteComment(comment_id, user);
     }
 
-   /* public com.hanghae.helog.repository.CommentRepository getCommentRepository() {
-        return CommentRepository;
-    }*/
 }
