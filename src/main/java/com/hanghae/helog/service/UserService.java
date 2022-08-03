@@ -2,17 +2,24 @@ package com.hanghae.helog.service;
 
 import com.hanghae.helog.domain.User;
 import com.hanghae.helog.dto.user.UserCheckExistingIdResponseDto;
+import com.hanghae.helog.dto.user.UserSigninRequestDto;
+import com.hanghae.helog.dto.user.UserSigninResponseDto;
 import com.hanghae.helog.dto.user.UserSignupRequestDto;
 import com.hanghae.helog.repository.UserRepository;
+import com.hanghae.helog.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
-public class UserService {
+@Service
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public UserCheckExistingIdResponseDto checkExistingId(String userId) {
         boolean result = userRepository.existsById(userId);
@@ -37,11 +44,35 @@ public class UserService {
         }
 
         User newUser = User.builder()
-                .id(userSignupRequestDto.getUserId())
-                .email(userSignupRequestDto.getEmail())
-                .password(passwordEncoder.encode(userSignupRequestDto.getPassword()))
-                .build();
+                            .id(userSignupRequestDto.getUserId())
+                            .name(userSignupRequestDto.getName())
+                            .password(passwordEncoder.encode(userSignupRequestDto.getPassword()))
+                            .build();
 
         userRepository.save(newUser);
+    }
+
+    @Override
+    public User loadUserByUsername(String id) throws UsernameNotFoundException {
+        return userRepository.findById(id)
+                                .orElseThrow(() -> new UsernameNotFoundException("해당 사용자가 없습니다."));
+    }
+
+    public UserSigninResponseDto signIn(UserSigninRequestDto userSigninRequestDto) {
+        String id = userSigninRequestDto.getUserId();
+        String password = userSigninRequestDto.getPassword();
+
+        User user = userRepository.findById(id).get();
+
+        if(passwordEncoder.matches(password, user.getPassword())) {
+            String token = jwtUtil.generateToken(user);
+
+            return new UserSigninResponseDto().builder()
+                    .userId(id)
+                    .token(token)
+                    .build();
+        } else {
+            throw new BadCredentialsException("로그인에 실패하였습니다.");
+        }
     }
 }

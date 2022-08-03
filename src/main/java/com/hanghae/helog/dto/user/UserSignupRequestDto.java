@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @Getter
 public class UserSignupRequestDto {
     private String userId;
-    private String email;
+    private String name;
     private String password;
     private String passwordCheck;
 
     public UserSignupRequestDto(UserSignupRequestForm userSignupRequestForm) {
         this.userId = userSignupRequestForm.getUserId();
-        this.email = userSignupRequestForm.getEmail();
+        this.name = userSignupRequestForm.getName();
         this.password = userSignupRequestForm.getPassword();
         this.passwordCheck = userSignupRequestForm.getPasswordCheck();
     }
