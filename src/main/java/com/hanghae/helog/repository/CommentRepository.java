@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
        List<Comment> findAllByPostIdOrderByCreatedAtDesc(Long post_id);
-
-
+       int countByUrl(String url);
 }
