@@ -8,6 +8,8 @@ public class PostDetailResponseDto {
 
     private Long post_id;           // 게시글 ID
     private String title;           // 게시글 제목
+    private String viewContent;         // 게시글 내용
+    private String writingContent;
     private String subTitle;        // 게시글 서브 제목
     private String createdAt;       // 작성 시간
     private Long user_id;           // 사용자 아이디
@@ -19,6 +21,8 @@ public class PostDetailResponseDto {
     public PostDetailResponseDto(Post post, int commentCount) {
         this.post_id = post.getPost_id();
         this.title = post.getTitle();
+        this.viewContent = post.getViewContent();
+        this.writingContent = post.getWritingContent();
         this.subTitle = post.getSubTitle();
         this.createdAt = post.getCreatedAt();
         this.user_id = post.getUser().getUser_id();

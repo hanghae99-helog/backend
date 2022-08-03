@@ -9,7 +9,9 @@ public class PostEditRequestDto {
 
     private String title;       // 게시글 제목
 
-    private String content;     // 게시글 내용
+    private String viewContent;     // 게시글 내용(뷰)
+
+    private String writingContent;     // 게시글 내용(수정)
 
     private String thumbnail;   // 이미지 파일 저장 장소
 
