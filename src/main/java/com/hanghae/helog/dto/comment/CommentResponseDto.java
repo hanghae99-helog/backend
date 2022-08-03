@@ -9,14 +9,16 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CommentResponseDto {
-    private String user_id;
-    private Long post_id;
+    private String userId;
+    //private Long postId;
     private String content;
     private String createdAt;
+    private Long commentId;
 
     public CommentResponseDto(Comment comment){
-        this.user_id=comment.getUser().getId();
-        this.post_id=comment.getPost().getPost_id();
+        this.userId=comment.getUser().getId();
+        //this.postId=comment.getPost().getPost_id();
+        this.commentId=comment.getComment_id();
         this.content=comment.getContent();
         this.createdAt=comment.getCreatedAt();
     }
