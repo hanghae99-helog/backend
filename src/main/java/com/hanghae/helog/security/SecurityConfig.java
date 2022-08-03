@@ -2,6 +2,7 @@ package com.hanghae.helog.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -29,7 +30,8 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/api/signup/{userId}", "/api/signup", "/api/signin").permitAll()
+                .antMatchers("/api/signup/{userId}", "/api/signup", "/api/signin", "/api/list").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/comments/{postId}").permitAll()
                 .anyRequest().authenticated();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

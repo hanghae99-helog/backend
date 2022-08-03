@@ -17,7 +17,7 @@ import javax.validation.Valid;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/api/signup/{userId}")
+    @GetMapping("/api/signup/{userId}")
     public ResponseEntity<?> checkExistingId(@PathVariable String userId) {
         UserCheckExistingIdResponseDto userCheckExistingIdResponseDto = userService.checkExistingId(userId);
 

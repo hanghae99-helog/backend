@@ -1,5 +1,6 @@
 package com.hanghae.helog.controller;
 
+import com.hanghae.helog.domain.User;
 import com.hanghae.helog.dto.post.AllPostResponseDto;
 import com.hanghae.helog.dto.post.PostCreateReqeustDto;
 import com.hanghae.helog.dto.post.PostDetailResponseDto;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,38 +24,24 @@ public class PostController {
 
 
     // 게시글 전체 조회
-
     @GetMapping("/api/list")
     public List<AllPostResponseDto> getAllPosts(@PageableDefault(page = 1, size = 15, sort = "createdAt", direction = Sort.Direction.DESC)
                                                     Pageable pageable) {
 
         return postService.getAllPosts(pageable);
-
     }
-
-
-//    @GetMapping("/api/list")
-//    public List<AllPostResponseDto> getAllPosts(
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy,
-//            @RequestParam("isAsc") boolean isAsc
-//    ) {
-//        return postService.getAllPosts(page, size, sortBy, isAsc);
-//    }
-
 
     // 게시글 작성
     @PostMapping("/api/posting")
-    public void createPost(@AuthenticationPrincipal UserDetailsImpl userDetails,
+    public void createPost(@AuthenticationPrincipal User user,
                            @RequestBody PostCreateReqeustDto postCreateReqeustDto) {
 
-        postService.createPost(userDetails, postCreateReqeustDto);
+        postService.createPost(user, postCreateReqeustDto);
     }
 
 
     // 게시글 상세조회
-    @GetMapping("/api/postiong/{url}")
+    @GetMapping("/api/posting")
     public PostDetailResponseDto getPostDetails(@RequestParam String url) {
 
         return postService.getPostDetails(url);
@@ -62,20 +50,20 @@ public class PostController {
 
     // 게시글 수정
     @PutMapping("/api/posting/{post_id}")
-    public ResponseEntity<?> editPost(@AuthenticationPrincipal UserDetailsImpl userDetails,
+    public ResponseEntity<?> editPost(@AuthenticationPrincipal User user,
                                       @PathVariable Long post_id,
                                       @RequestBody PostEditRequestDto postEditRequestDto) {
 
-        return postService.editPost(userDetails, post_id, postEditRequestDto);
+        return postService.editPost(user, post_id, postEditRequestDto);
     }
 
 
     // 게시글 삭제
     @DeleteMapping("api/posting/{post_id}")
-    public ResponseEntity<?> deletePost(@AuthenticationPrincipal UserDetailsImpl userDetails,
+    public ResponseEntity<?> deletePost(@AuthenticationPrincipal User user,
                            @PathVariable Long post_id) {
 
-        return postService.deletePost(userDetails, post_id);
+        return postService.deletePost(user, post_id);
     }
 
 }

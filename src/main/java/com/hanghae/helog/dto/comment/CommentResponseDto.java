@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CommentResponseDto {
-    private Long user_id;
+    private String user_id;
     private Long post_id;
     private String content;
     private String createdAt;
 
     public CommentResponseDto(Comment comment){
-        this.user_id=comment.getUser().getUser_id();
+        this.user_id=comment.getUser().getId();
         this.post_id=comment.getPost().getPost_id();
         this.content=comment.getContent();
         this.createdAt=comment.getCreatedAt();
