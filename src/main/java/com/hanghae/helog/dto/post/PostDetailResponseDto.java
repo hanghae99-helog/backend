@@ -21,7 +21,7 @@ public class PostDetailResponseDto {
         this.title = post.getTitle();
         this.subTitle = post.getSubTitle();
         this.createdAt = post.getCreatedAt();
-        this.user_id = getUser_id();
+        this.user_id = post.getUser().getUser_id();
         this.commentCount = commentCount;
         this.thumbnail = post.getThumbnail();
         this.url = post.getUrl();

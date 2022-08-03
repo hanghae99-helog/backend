@@ -1,13 +1,10 @@
 package com.hanghae.helog.dto.comment;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
-@Setter
-@RequiredArgsConstructor
 public class CommentRequestDto {
-
-    private String Content;
+    private String comment;
 }
