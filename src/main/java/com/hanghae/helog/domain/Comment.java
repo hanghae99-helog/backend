@@ -1,5 +1,6 @@
 package com.hanghae.helog.domain;
 
+import com.hanghae.helog.dto.comment.CommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +25,14 @@ public class Comment extends Timestamped {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    public Comment (Post post, User user, CommentRequestDto commentRequestDto){
+        this.post=post;
+        this.user=user;
+        this.content=commentRequestDto.getContent();
+    }
+
+    public void update(CommentRequestDto requestDto){
+        this.content = requestDto.getContent();
+    }
 }
