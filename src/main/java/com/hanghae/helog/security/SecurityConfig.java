@@ -31,7 +31,7 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/api/signup/{userId}", "/api/signup", "/api/signin", "/api/list").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/comments/{postId}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/posting", "/api/comments/{postId}").permitAll()
                 .anyRequest().authenticated();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
