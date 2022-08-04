@@ -26,8 +26,7 @@ public class PostController {
 
     // 게시글 전체 조회
     @GetMapping("/api/list")
-    public Slice<AllPostResponseDto> getAllPosts(@PageableDefault(size = 15, sort = "createdAt", direction = Sort.Direction.DESC)
-                                                    Pageable pageable) {
+    public Slice<AllPostResponseDto> getAllPosts(@PageableDefault(size = 15, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
 
         return postService.getAllPosts(pageable);
     }

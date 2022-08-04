@@ -1,10 +1,11 @@
 package com.hanghae.helog.dto.post;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class PostCreateReqeustDto {
-
     private String title;       // 게시글 제목
 
     private String viewContent;     // 게시글 내용(뷰)
@@ -16,5 +17,4 @@ public class PostCreateReqeustDto {
     private String subTitle;    // 게시글 서브 제목
 
     private String url;        // 게시글 URL
-
 }

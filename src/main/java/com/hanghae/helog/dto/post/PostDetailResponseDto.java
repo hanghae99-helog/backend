@@ -2,7 +2,9 @@ package com.hanghae.helog.dto.post;
 
 import com.hanghae.helog.domain.Post;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class PostDetailResponseDto {
 

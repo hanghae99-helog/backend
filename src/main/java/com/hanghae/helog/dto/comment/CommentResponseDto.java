@@ -6,22 +6,18 @@ import lombok.NoArgsConstructor;
 
 
 
-@Getter
 @NoArgsConstructor
+@Getter
 public class CommentResponseDto {
-    private String userId;
-    //private Long postId;
-    private String content;
-    private String createdAt;
     private Long commentId;
+    private String userId;
+    private String createdAt;
+    private String comment;
 
     public CommentResponseDto(Comment comment){
-        this.userId=comment.getUser().getId();
-        //this.postId=comment.getPost().getPost_id();
         this.commentId=comment.getComment_id();
-        this.content=comment.getContent();
+        this.userId=comment.getUser().getId();
         this.createdAt=comment.getCreatedAt();
+        this.comment=comment.getContent();
     }
-
-
 }

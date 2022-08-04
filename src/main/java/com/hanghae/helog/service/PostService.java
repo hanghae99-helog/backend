@@ -61,6 +61,14 @@ public class PostService {
         return new SliceImpl<>(allPostResponseDtoList, pageable, hasNext);
     }
 
+//    public Slice<AllPostResponseDto> getAllPosts(Pageable pageable) {
+//        Slice<Post> postSlice = postRepository.findByOrderByCreatedAtDesc(pageable);
+//
+//        Slice<AllPostResponseDto> allPostResponseDtoSlice = postSlice.map(m -> new AllPostResponseDto());
+//
+//        return allPostResponseDtoSlice;
+//    }
+
     // 게시글 작성
     public void createPost(@AuthenticationPrincipal User user,
                            @RequestBody PostCreateReqeustDto postCreateReqeustDto) {
